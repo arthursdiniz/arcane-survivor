@@ -1,34 +1,34 @@
 # Arcane Survivor
 
-Arcane Survivor is a local 2D survival roguelite made with Java and LibGDX. Move through a ruined arena, defeat enemies with automatic weapons, collect experience, and choose upgrades. Survive until the final boss appears at 12:00, then defeat it to win.
+Arcane Survivor é um roguelite local de sobrevivência em 2D, feito com Java e LibGDX. Atravesse uma arena em ruínas, derrote inimigos com armas automáticas, colete experiência e escolha melhorias. Sobreviva até o chefe final aparecer aos 12:00 e derrote-o para vencer.
 
-## Features
+## Recursos
 
-- Fluid, frame independent movement with a following camera and four-direction idle/walk animation
-- Enemy movement animations: slime squash, bat wing motion, skeleton gait, golem sway, and floating boss
-- Automatic attacks with four weapons: Magic Bolt, Orbiting Orb, Fire Aura, and Piercing Arrow. Each weapon level adds a bolt, arrow, or orb; Fire Aura gains range instead.
-- Four ordinary enemy types, periodic waves and progressive spawning, a mini-boss at 6:00, and a final boss at 12:00
-- Experience gems, level ups, three random upgrade choices, weapon levels up to five
-- Health, armor, brief invulnerability, HUD, pause, game over, victory, and run statistics
-- Keyboard and mouse menus, volume settings, optional fullscreen
-- Original illustrated sprites, a subdued ruins floor, and light emitted by player projectiles
-- Development shortcuts for faster experience, denser enemy spawns, and immediate final boss testing
+- Movimentação fluida e independente da taxa de quadros, com câmera que acompanha o jogador e animações de repouso e caminhada em quatro direções
+- Animações de movimento dos inimigos: compressão da slime, asas do morcego, marcha do esqueleto, balanço do golem e chefe flutuante
+- Ataques automáticos com quatro armas: Magic Bolt, Orbiting Orb, Fire Aura e Piercing Arrow. Cada nível de arma adiciona um projétil, flecha ou orbe; a Fire Aura aumenta o alcance.
+- Quatro tipos de inimigos comuns, ondas periódicas e surgimento progressivo de inimigos, um mini-chefe aos 6:00 e o chefe final aos 12:00
+- Gemas de experiência, níveis, três opções aleatórias de melhoria e armas até o nível cinco
+- Vida, armadura, breve invulnerabilidade, HUD, pausa, fim de jogo, vitória e estatísticas da partida
+- Menus por teclado e mouse, configurações de volume e tela cheia opcional
+- Sprites ilustrados originais, piso de ruínas discreto e luz emitida pelos projéteis do jogador
+- Atalhos de desenvolvimento para ganhar experiência mais rápido, aumentar o surgimento de inimigos e testar imediatamente o chefe final
 
-## Requirements
+## Requisitos
 
 - JDK 21 or newer
 - Apache Maven 3.9 or newer
 
-## Run
+## Como executar
 
-From the project directory:
+No diretório do projeto:
 
 ```bash
 mvn test
 mvn exec:java
 ```
 
-On Windows PowerShell, use the same commands. If Maven uses an older Java installation, set `JAVA_HOME` to your JDK 21+ directory first:
+No Windows PowerShell, use os mesmos comandos. Se o Maven usar uma instalação mais antiga do Java, defina `JAVA_HOME` apontando para o diretório do JDK 21 ou superior:
 
 ```powershell
 $env:JAVA_HOME = 'C:\path\to\jdk-21'
@@ -36,62 +36,62 @@ mvn test
 mvn exec:java
 ```
 
-Maven downloads LibGDX and JUnit from Maven Central on the first build.
+Na primeira compilação, o Maven baixa o LibGDX e o JUnit do Maven Central.
 
-## Controls
+## Controles
 
-| Key | Action |
+| Tecla | Ação |
 | --- | --- |
-| WASD / arrow keys | Move |
-| Esc | Pause / resume |
-| 1, 2, 3 | Choose an upgrade |
-| Mouse | Use menus and choose upgrades |
-| F11 | Toggle fullscreen |
-| L | Toggle 5x experience from collected gems during a run |
-| K | Toggle 2x regular enemy spawns during a run |
-| J | Summon the final boss immediately, once per run |
-| P | Gain one character level immediately and choose an upgrade |
+| WASD / setas direcionais | Mover |
+| Esc | Pausar / continuar |
+| 1, 2, 3 | Escolher uma melhoria |
+| Mouse | Usar menus e escolher melhorias |
+| F11 | Alternar tela cheia |
+| L | Alternar para 5x a experiência das gemas coletadas durante a partida |
+| K | Alternar para 2x o surgimento de inimigos comuns durante a partida |
+| J | Invocar imediatamente o chefe final, uma vez por partida |
+| P | Ganhar um nível de personagem imediatamente e escolher uma melhoria |
 
-## Architecture
+## Arquitetura
 
-- `model`: player, enemies, projectiles, and experience gems, with rules independent of rendering
-- `weapon`: individual automatic weapon behaviors behind a small common base class
-- `system`: run simulation, spawning, difficulty progression, and upgrade selection
-- `screen`: LibGDX rendering, HUD, menu states, and player input
-- `ArtAssets`: illustrated textures, sprite regions, repeating floor, and reusable glow texture
-- `Facing`: shared four-direction state used by the player and enemies; animation time advances with the simulation
-- `AudioManager`: optional local music and sound effects; missing files are silent
+- `model`: jogador, inimigos, projéteis e gemas de experiência, com regras independentes da renderização
+- `weapon`: comportamentos individuais de armas automáticas por trás de uma pequena classe base comum
+- `system`: simulação da partida, surgimento de inimigos, progressão de dificuldade e seleção de melhorias
+- `screen`: renderização do LibGDX, HUD, estados de menu e entrada do jogador
+- `ArtAssets`: texturas ilustradas, regiões de sprites, piso repetível e textura reutilizável de brilho
+- `Facing`: estado compartilhado das quatro direções usado pelo jogador e pelos inimigos; o tempo de animação avança com a simulação
+- `AudioManager`: música local e efeitos sonoros opcionais; arquivos ausentes ficam em silêncio
 
-The render loop updates the simulation only in active play. Menu, pause, and upgrade selection stop the run timer and combat. Collisions use circles. The world has a finite arena, and active enemies are capped at 320.
+O ciclo de renderização atualiza a simulação somente durante a partida ativa. Menu, pausa e seleção de melhorias interrompem o cronômetro e o combate. As colisões usam círculos. O mundo tem uma arena finita, e o número de inimigos ativos é limitado a 320.
 
-## Screenshots
+## Capturas de tela
 
-### Main menu
+### Menu principal
 
-![Main menu](docs/screenshots/main-menu.png)
+![Menu principal](docs/screenshots/main-menu.png)
 
-### HUD and art preview
+### Prévia do HUD e da arte
 
-![HUD and art preview](docs/screenshots/hud-art-preview.png)
+![Prévia do HUD e da arte](docs/screenshots/hud-art-preview.png)
 
-This preview uses a staged validation scene to show the enemy sprites together. During a normal run, enemy types unlock over time.
+Esta prévia usa uma cena de validação preparada para mostrar os sprites dos inimigos juntos. Em uma partida normal, os tipos de inimigo são desbloqueados com o tempo.
 
-### Player directions
+### Direções do jogador
 
-![Four player directions](docs/screenshots/direction-preview.png)
+![Quatro direções do jogador](docs/screenshots/direction-preview.png)
 
-The preview shows one walking frame for each direction. The game cycles the remaining walking frames while moving and plays a subtle breathing animation while idle.
+A prévia mostra um quadro de caminhada para cada direção. O jogo alterna os quadros de caminhada restantes durante o movimento e reproduz uma animação sutil de respiração em repouso.
 
-## Assets
+## Recursos visuais e sonoros
 
-| Asset | Author / source | License / status |
+| Recurso | Autor / fonte | Licença / status |
 | --- | --- | --- |
-| Ruins floor, character atlas, directional mage sheet, Necromancer, mage portrait | Created for this project with OpenAI's built-in `image_gen`; prompts in [ART_PROMPTS.md](ART_PROMPTS.md) | Project-generated art; no third-party source asset |
-| Play Regular and Bold fonts | Jonas Hecksher, Playtypes, e-types AS; [Google Fonts](https://github.com/google/fonts/tree/main/ofl/play) | SIL Open Font License 1.1; license text in `src/main/resources/font/OFL.txt` |
-| Glow texture | Generated at runtime by `ArtAssets` | Original project code |
+| Piso de ruínas, atlas de personagens, folha direcional do mago, Necromancer e retrato do mago | Criados para este projeto com o `image_gen` integrado da OpenAI; prompts em [ART_PROMPTS.md](ART_PROMPTS.md) | Arte gerada para o projeto; sem recurso de terceiros |
+| Fontes Play Regular e Bold | Jonas Hecksher, Playtypes, e-types AS; [Google Fonts](https://github.com/google/fonts/tree/main/ofl/play) | SIL Open Font License 1.1; texto da licença em `src/main/resources/font/OFL.txt` |
+| Textura de brilho | Gerada em tempo de execução por `ArtAssets` | Código original do projeto |
 
-Optional audio can be placed in `src/main/resources/audio/` as `music.ogg`, `attack.wav`, `kill.wav`, `level.wav`, `hurt.wav`, and `boss.wav`. Record the name, author, source, and license of any audio added to the project.
+Áudios opcionais podem ser colocados em `src/main/resources/audio/` como `music.ogg`, `attack.wav`, `kill.wav`, `level.wav`, `hurt.wav` e `boss.wav`. Registre o nome, autor, fonte e licença de qualquer áudio adicionado ao projeto.
 
-## Future improvements
+## Melhorias futuras
 
-New characters and weapons, alternate maps, weapon evolutions, achievements, more bosses, local saves and leaderboard, and difficulty modes.
+Novos personagens e armas, mapas alternativos, evoluções de armas, conquistas, mais chefes, salvamentos locais, placar de líderes e modos de dificuldade.
